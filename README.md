@@ -2,7 +2,9 @@
 
 A modern, AI-powered financial insights dashboard with a clean, glassy Apple Vision OS style UI. This application provides real-time stock data, sentiment analysis, and news summarization using OpenAI's GPT models to deliver actionable financial insights.
 
-![FinSum Dashboard](https://i.imgur.com/hPKlNbD.png)
+![FinSum Dashboard](homescreen.png)
+
+> **Note:** For demonstration purposes, the application uses mock data when API connections fail. This allows you to test functionality without valid API keys.
 
 ## Features
 
