@@ -1,0 +1,339 @@
+/* Main Settings */
+:root {
+  --primary-color: #0071e3;
+  --primary-light: #64b4ff;
+  --primary-dark: #004c99;
+  --success-color: #34c759;
+  --danger-color: #ff3b30;
+  --warning-color: #ffcc00;
+  --neutral-color: #8e8e93;
+  --bg-gradient-start: #f5f5fa;
+  --bg-gradient-end: #e1f5fe;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: rgba(31, 38, 135, 0.1);
+  --meter-positive: #51cf66;
+  --meter-negative: #ff6b6b;
+  --meter-neutral: #adb5bd;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+.glass-bg {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  box-shadow: 0 12px 32px 0 rgba(31, 38, 135, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Headers and Text */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--neutral-color);
+  font-weight: 300;
+}
+
+.stock-symbol {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #333;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.change-indicator {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Form Elements */
+.glass-input {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+  border-color: var(--primary-color);
+}
+
+.glass-button {
+  background: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 500;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.glass-button:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+/* Improved Stock Selector */
+.stock-selector-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.stock-select-item {
+  margin-bottom: 10px;
+}
+
+.stock-select-item label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.stock-select-item input[type="checkbox"]:checked + label {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 113, 227, 0.3);
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.refresh-button svg {
+  margin-right: 4px;
+}
+
+/* Sentiment Meter */
+.sentiment-meter {
+  margin-top: 5px;
+}
+
+.meter-bar {
+  height: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  background-color: var(--meter-neutral);
+}
+
+/* For specific sentiment meter colors */
+.meter-fill[data-color="#ff6b6b"] {
+  background-color: var(--meter-negative);
+}
+
+.meter-fill[data-color="#51cf66"] {
+  background-color: var(--meter-positive);
+}
+
+.meter-fill[data-color="#adb5bd"] {
+  background-color: var(--meter-neutral);
+}
+
+/* News List */
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.initial-news {
+  max-height: none;
+  overflow: visible;
+}
+
+.news-item {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.news-item:last-child {
+  border-bottom: none;
+}
+
+.news-title {
+  display: block;
+  color: var(--primary-dark);
+  text-decoration: none;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.news-title:hover {
+  color: var(--primary-color);
+}
+
+.news-sentiment {
+  margin-top: 3px;
+}
+
+.sentiment-indicator {
+  display: inline-block;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.sentiment-indicator.positive {
+  background-color: rgba(52, 199, 89, 0.15);
+  color: var(--success-color);
+}
+
+.sentiment-indicator.negative {
+  background-color: rgba(255, 59, 48, 0.15);
+  color: var(--danger-color);
+}
+
+.sentiment-indicator.neutral {
+  background-color: rgba(142, 142, 147, 0.15);
+  color: var(--neutral-color);
+}
+
+/* AI Summary */
+.ai-summary, .article-summary {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.ai-summary h5, .article-summary h4 {
+  margin-top: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.summary-content {
+  font-size: 0.95rem;
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+/* Q&A Section */
+.qa-result {
+  background: rgba(0, 113, 227, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.question, .answer {
+  margin-bottom: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .stock-symbol {
+    font-size: 1.3rem;
+  }
+  
+  .price {
+    font-size: 1.1rem;
+  }
+  
+  .stock-selector-container {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  }
+}
+
+/* News Header */
+.news-header {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* No News Message */
+.no-news {
+  color: var(--neutral-color);
+  text-align: center;
+  margin: 15px 0;
+}
+
+/* Add styles for the show more/less functionality */
+.show-more-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.show-more-btn {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+}
+
+.extra-news {
+  margin-top: 8px;
+  border-top: 1px dashed #dee2e6;
+  padding-top: 8px;
+} 
