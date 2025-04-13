@@ -1,10 +1,8 @@
 # FinSum - Financial Insights Dashboard
 
-A modern, AI-powered financial insights dashboard with a clean, glassy Apple Vision OS style UI. This application provides stock data, sentiment analysis, and news summarization using OpenAI's GPT models to deliver actionable financial insights.
+A modern, AI-powered financial insights dashboard with a clean, glassy Apple Vision OS style UI. This application provides real-time stock data, sentiment analysis, and news summarization using OpenAI's GPT models to deliver actionable financial insights.
 
-![FinSum Dashboard](homescreen.png)
-
-> **Note:** For demonstration purposes, the application uses mock data when API connections fail. This allows you to test functionality without valid API keys.
+![FinSum Dashboard](https://i.imgur.com/hPKlNbD.png)
 
 ## Features
 
@@ -59,15 +57,15 @@ finsum/
 
 1. Clone the repository and navigate to the project directory:
 ```bash
-git clone https://github.com/yourusername/finsum.git
+git clone https://github.com/martindemel/finsum.git
 cd finsum
 ```
 
-2. Set up your environment variables by creating a `.env` file with the following:
+2. Run the setup script to configure environment variables:
+```bash
+./setup_env.sh
 ```
-OPENAI_API_KEY=your_openai_api_key_here
-SECRET_KEY=your_secret_key_here
-```
+This will create a `.env` file with your API keys.
 
 3. Run the application using the included helper script:
 ```bash
@@ -79,7 +77,7 @@ This script will:
 - Download necessary NLTK data
 - Start the application
 
-4. Access the application at: http://localhost:8086
+4. Access the application at: http://localhost:8080
 
 ### Manual Installation
 
@@ -96,7 +94,14 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Run the application:
+3. Set up environment variables:
+```bash
+export OPENAI_API_KEY="your_openai_key"
+export ALPHAVANTAGE_API_KEY="your_alpha_vantage_key"
+export NEWSAPI_KEY="your_newsapi_key"  # optional
+```
+
+4. Run the application:
 ```bash
 python app.py
 ```
@@ -110,20 +115,11 @@ To run the application using Docker:
 docker build -t finsum .
 
 # Run the container
-docker run -p 8086:8086 \
+docker run -p 8080:5000 \
   -e OPENAI_API_KEY="your_openai_key" \
-  -e SECRET_KEY="your_secret_key" \
+  -e ALPHAVANTAGE_API_KEY="your_alpha_vantage_key" \
   finsum
 ```
-
-## Mock Data Feature
-
-For demonstration purposes, the application includes a fallback mechanism to use mock data when:
-- API keys are not provided or are invalid
-- API rate limits are exceeded
-- Network connections fail
-
-This allows you to test the application's functionality without valid API credentials. Stock prices and news articles are generated with realistic but fictional values.
 
 ## Advanced Features
 
@@ -137,13 +133,21 @@ FinBERT is a pre-trained NLP model specifically tuned for financial text. To ena
 
 Note that FinBERT requires more system resources than the default VADER sentiment analyzer.
 
+### Adding NewsAPI as a Data Source
+
+To incorporate additional news sources:
+
+1. Ensure you have a valid NewsAPI key configured
+2. In `app.py`, locate calls to `data_fetch.analyze_stocks()`
+3. Change the `use_newsapi` parameter from `False` to `True`
+
 ### Customizing Stocks
 
 The default list of stocks can be modified in the `refresh_default_stocks()` function in `app.py`. The current defaults are:
 
 ```python
 default_symbols = [
-    "TSLA","NVDA","AAPL","GOOGL","AMZN","XRP",
+    "TSLA","NVDA","AAPL","GOOGL","AMZN","XRP","AVGO",
     "MSFT","META","NFLX","BABA","BAC"
 ]
 ```
@@ -153,18 +157,17 @@ default_symbols = [
 ### No News or Data Appearing
 
 If you see "No recent news available" for all stocks:
-1. Verify your OpenAI API key is correct
+1. Verify your Alpha Vantage API key is correct
 2. Check if you've exceeded your API rate limits (free tier has limitations)
 3. Try clicking the "Refresh Data" button
 4. Check the application logs in `app.log` for specific error messages
 
-Note that without valid API keys, the application will fall back to mock data.
+### Error with OpenAI Integration
 
-### Port Already in Use
-
-If you see "Address already in use" when starting the application:
-1. Edit the `PORT` variable in `app.py` to use a different port
-2. Alternatively, identify and stop the process using the current port
+If summarization or Q&A features aren't working:
+1. Verify your OpenAI API key is correct
+2. Check your OpenAI account has available credits
+3. The application supports both older and newer versions of the OpenAI API
 
 ## License
 
